@@ -11,43 +11,48 @@ import DesignSystem
 struct DrawsView: View {
     
     @State var viewModel: IDrawsViewModel
-    @State private var isRefreshing = false
     
     var body: some View {
         NavigationView {
-            GeometryReader { geo in
-                ScrollView {
-                    switch  viewModel.state {
-                    case .success(let draws):
-                        if isRefreshing {
-                            ForEach((1...10).reversed(), id: \.self) { id in
-                                DrawItemShimmerView()
-                            }
-                        } else {
-                            VStack(spacing: 0) {
-                                ForEach(draws, id:  \.drawNumber) { draw in
-                                    DrawItemView(draw: draw)
-                                }
-                            }
-                        }
-                    case .failure(_):
-                        errorState(geo: geo)
+            
+            switch viewModel.state {
+            case .loading:
+                loadingState()
+                    .navigationTitle("Rounds")
+            case .loaded(let draws):
+                loadedState(draws: draws)
+                    .navigationTitle("Rounds")
+                    .refreshable {
+                        await refresh()
                     }
-                }
+            case .error:
+                errorState()
             }
-            .refreshable {
-                await refresh()
-            }
-            .navigationTitle("Rounds")
         }
         .task {
-            self.isRefreshing.toggle()
-            await refresh()
-            self.isRefreshing.toggle()
+            await viewModel.fetch()
         }
     }
     
-    @ViewBuilder private func errorState(geo: GeometryProxy) -> some View {
+    @ViewBuilder private func loadedState(draws: [Draw]) -> some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                ForEach(draws, id:  \.drawNumber) { draw in
+                    DrawItemView(draw: draw)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder private func loadingState() -> some View {
+        ScrollView {
+            ForEach((1...10).reversed(), id: \.self) { id in
+                DrawItemShimmerView()
+            }
+        }
+    }
+        
+    @ViewBuilder private func errorState() -> some View {
         VStack(spacing: 16) {
             Image(systemName: "exclamationmark.warninglight")
                 .font(.system(size: 44))
@@ -59,18 +64,30 @@ struct DrawsView: View {
                 .font(.subheadline)
                 .foregroundStyle(.tertiary)
                 .multilineTextAlignment(.center)
+            Button("Retry") {
+                Task {
+                    await viewModel.fetch()
+                }
+            }.buttonStyle(.borderedProminent)
+                .font(.headline)
             
         }
         .padding(24)
-        .frame(minWidth: geo.size.width,
-               minHeight: geo.size.height * 0.7)
     }
     
     private func refresh() async {
-        await viewModel.fetchDraws()
+        await viewModel.refresh()
     }
 }
 
-#Preview {
-    DrawsView(viewModel: PreviewDrawsViewModel())
+#Preview("Loaded State") {
+    DrawsView(viewModel: PreviewDrawsViewModel(state: .loaded(PreviewDrawsViewModel.draws)))
+}
+
+#Preview("Error State") {
+    DrawsView(viewModel: PreviewDrawsViewModel(state: .error(NSError())))
+}
+
+#Preview("Loading State") {
+    DrawsView(viewModel: PreviewDrawsViewModel(state: .loading))
 }

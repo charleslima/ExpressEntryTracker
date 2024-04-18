@@ -1,11 +1,11 @@
 import API
+import Utilities
 
-class PreviewDrawsViewModel: IDrawsViewModel {
-    var state: Result<[Draw], Error> = .failure(NSError())
+struct PreviewDrawsViewModel: IDrawsViewModel {
     
-    var draws: [Draw] = PreviewDrawsViewModel._draws
+    var state: ViewState<[Draw]>
     
-    static var _draws = [
+    static var draws = [
         Draw(
             drawNumber: "188",
             drawNumberURL: "<a href='/en/immigration-refugees-citizenship/corporate/mandate/policies-operational-instructions-agreements/ministerial-instructions/express-entry-rounds/invitations.html?q=188'>188</a>",
@@ -28,7 +28,6 @@ class PreviewDrawsViewModel: IDrawsViewModel {
         )
     ]
     
-    func fetchDraws() async {
-        
-    }
+    func fetch() async { }
+    func refresh() async { }
 }

@@ -5,29 +5,39 @@
 //  Created by Charles Lima on 2024-04-17.
 //
 import SwiftUI
-import API
 import Utilities
 
 protocol IDrawsViewModel {
-    var state: Result<[Draw], Error> { get }
-    func fetchDraws() async
+    var state: ViewState<[Draw]> { get }
+    func fetch() async
+    func refresh() async
 }
 
 @Observable class DrawsViewModel: IDrawsViewModel {
-    let repository: IDrawRepository
+    let listDrawUseCase: IListDrawUseCase
 
-    var state: Result<[Draw], Error> = .success([])
+    var state: ViewState<[Draw]> = .loading
     
-    init(drawRepository: IDrawRepository = DrawRepository()) {
-        self.repository = drawRepository
+    init(listDrawUseCase: IListDrawUseCase = ListDrawUseCase()) {
+        self.listDrawUseCase = listDrawUseCase
     }
     
-    func fetchDraws() async {
+    func refresh() async {
+        await fetchDraws()
+    }
+    
+    func fetch() async {
+        state = .loading
+        await fetchDraws()
+    }
+
+    private func fetchDraws() async {
         do {
-            let draws = try await repository.draws()
-            state = .success(draws)
+            let draws = try await listDrawUseCase.execute()
+            state = .loaded(draws)
         } catch {
-            state = .failure(error)
+            state = .error(error)
         }
     }
+    
 }
