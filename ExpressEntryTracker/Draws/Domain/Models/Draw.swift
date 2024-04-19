@@ -29,3 +29,16 @@ struct Draw {
         self.drawCutOff = drawCutOff
     }
 }
+
+extension Draw: Hashable {
+    static func == (lhs: Draw, rhs: Draw) -> Bool {
+        lhs.drawNumber == rhs.drawNumber &&
+        lhs.drawNumberURL == rhs.drawNumberURL &&
+        lhs.drawDate == rhs.drawDate &&
+        lhs.drawDateFull == rhs.drawDateFull &&
+        lhs.drawName == rhs.drawName &&
+        lhs.drawSize == rhs.drawSize &&
+        lhs.drawCRS == rhs.drawCRS &&
+        lhs.drawCutOff == rhs.drawCutOff
+    }
+}

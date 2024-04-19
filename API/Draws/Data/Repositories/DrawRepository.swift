@@ -18,14 +18,7 @@ public class DrawRepository: IDrawRepository {
     public func draws() async throws -> [Draw] {
         let inboundDraws = try await api.draws()
         return inboundDraws.map {
-            Draw(drawNumber: $0.drawNumber,
-                 drawNumberURL: $0.drawNumberURL,
-                 drawDate: $0.drawDate,
-                 drawDateFull: $0.drawDateFull,
-                 drawName: $0.drawName,
-                 drawSize: $0.drawSize,
-                 drawCRS: $0.drawCRS,
-                 drawCutOff: $0.drawCutOff)
+            $0.asDomainModel
         }
     }
 }

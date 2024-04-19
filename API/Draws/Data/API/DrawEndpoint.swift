@@ -4,7 +4,7 @@ enum DrawEndpoint {
 
 extension DrawEndpoint: Endpoint {
     var baseURL: String {
-        return "https://www.canada.ca"
+        return Config.host
     }
     
     var endpoint: String {

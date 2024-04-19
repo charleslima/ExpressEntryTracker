@@ -4,11 +4,12 @@ import Utilities
 struct PreviewDrawsViewModel: IDrawsViewModel {
     
     var state: ViewState<[Draw]>
-    
+    var filter: String? = nil
+    var filterOptions: [String?] = ["Canadian Experience Class", "STEM"]
     static var draws = [
         Draw(
             drawNumber: "188",
-            drawNumberURL: "<a href='/en/immigration-refugees-citizenship/corporate/mandate/policies-operational-instructions-agreements/ministerial-instructions/express-entry-rounds/invitations.html?q=188'>188</a>",
+            drawNumberURL: "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/policies-operational-instructions-agreements/ministerial-instructions/express-entry-rounds/invitations.html?q=188",
             drawDate: "2021-05-20",
             drawDateFull: "May 20, 2021",
             drawName: "Canadian Experience Class",
@@ -18,7 +19,7 @@ struct PreviewDrawsViewModel: IDrawsViewModel {
         ),
         Draw(
             drawNumber: "123",
-            drawNumberURL: "<a href='/en/immigration-refugees-citizenship/corporate/mandate/policies-operational-instructions-agreements/ministerial-instructions/express-entry-rounds/invitations.html?q=188'>188</a>",
+            drawNumberURL: "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/policies-operational-instructions-agreements/ministerial-instructions/express-entry-rounds/invitations.html?q=123",
             drawDate: "2021-05-20",
             drawDateFull: "May 20, 2021",
             drawName: "Canadian Experience Class",

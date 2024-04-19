@@ -7,14 +7,13 @@
 
 import SwiftUI
 import DesignSystem
+import WebKit
 
 struct DrawsView: View {
-    
     @State var viewModel: IDrawsViewModel
     
     var body: some View {
-        NavigationView {
-            
+        NavigationStack {
             switch viewModel.state {
             case .loading:
                 loadingState()
@@ -35,13 +34,41 @@ struct DrawsView: View {
     }
     
     @ViewBuilder private func loadedState(draws: [Draw]) -> some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                ForEach(draws, id:  \.drawNumber) { draw in
-                    DrawItemView(draw: draw)
-                }
+        List(draws, id: \.drawNumber) { draw in
+            ZStack {
+                NavigationLink(draw.drawName, value: draw).opacity(0)
+                DrawItemView(draw: draw)
             }
+            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+            .listRowSeparator(.hidden)
         }
+        .listStyle(.plain)
+        .navigationDestination(for: Draw.self, destination: { draw in
+            WebView(url: draw.drawNumberURL)
+                .navigationTitle(draw.drawName)
+                .navigationBarTitleDisplayMode(.inline)
+        })
+        .toolbar(content: {
+            Menu {
+                Button(action: {
+                    self.viewModel.filter = nil
+                }, label: {
+                    HStack {
+                        Image(systemName: "xmark.circle")
+                        Text("Clear Filter")
+                    }
+                })
+                Picker("Filter", selection: $viewModel.filter) {
+                    ForEach(viewModel.filterOptions, id: \.self) {
+                        if let option = $0 {
+                            Text(option).tag(option as String?)
+                        }
+                    }
+                }
+            } label: {
+                Image(systemName: viewModel.filter != nil ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
+            }
+        })
     }
     
     @ViewBuilder private func loadingState() -> some View {
