@@ -7,18 +7,43 @@
 import SwiftUI
 import Utilities
 
+enum DrawsViewMode: Int, CaseIterable, Identifiable {
+    var id: Int { self.rawValue }
+    
+    case rounds = 0
+    case pool = 1
+    
+    var title: String {
+        switch self {
+        case .rounds:
+            "Rounds"
+        case .pool:
+            "Pool"
+        }
+    }
+}
+
 protocol IDrawsViewModel {
     var filter: String? { get set }
     var filterOptions: [String?] { get }
     var state: ViewState<[Draw]> { get }
+    var viewMode: DrawsViewMode { get set }
     func fetch() async
     func refresh() async
+    func poolTitle(date: Date) -> String
 }
 
 @Observable class DrawsViewModel: IDrawsViewModel {
     
+    private let dateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter
+    }()
+    
     let listDrawUseCase: IListDrawUseCase
     var state: ViewState<[Draw]> = .loading
+    var viewMode: DrawsViewMode = .rounds
     
     var filter: String? = nil {
         didSet {
@@ -55,6 +80,10 @@ protocol IDrawsViewModel {
         } catch {
             state = .error(error)
         }
+    }
+    
+    func poolTitle(date: Date) -> String {
+        "CRS score distribution of candidates in the Express Entry pool as of \(dateFormatter.string(from: date))"
     }
     
 }

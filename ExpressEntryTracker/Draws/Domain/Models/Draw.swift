@@ -17,8 +17,10 @@ struct Draw {
     let drawSize: String
     let drawCRS: String
     let drawCutOff: String
+    let drawDistributionAsOn: Date
+    let pool: [ScorePool]
     
-    init(drawNumber: String, drawNumberURL: String, drawDate: String, drawDateFull: String, drawName: String, drawSize: String, drawCRS: String, drawCutOff: String) {
+    init(drawNumber: String, drawNumberURL: String, drawDate: String, drawDateFull: String, drawName: String, drawSize: String, drawCRS: String, drawCutOff: String, drawDistributionAsOn: Date, pool: [ScorePool]) {
         self.drawNumber = drawNumber
         self.drawNumberURL = drawNumberURL
         self.drawDate = drawDate
@@ -27,6 +29,8 @@ struct Draw {
         self.drawSize = drawSize
         self.drawCRS = drawCRS
         self.drawCutOff = drawCutOff
+        self.drawDistributionAsOn = drawDistributionAsOn
+        self.pool = pool
     }
 }
 
@@ -39,6 +43,8 @@ extension Draw: Hashable {
         lhs.drawName == rhs.drawName &&
         lhs.drawSize == rhs.drawSize &&
         lhs.drawCRS == rhs.drawCRS &&
-        lhs.drawCutOff == rhs.drawCutOff
+        lhs.drawCutOff == rhs.drawCutOff &&
+        lhs.drawDistributionAsOn == rhs.drawDistributionAsOn &&
+        lhs.pool == rhs.pool
     }
 }

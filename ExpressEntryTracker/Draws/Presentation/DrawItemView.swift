@@ -55,7 +55,9 @@ struct DrawItemView: View {
             drawName: "Canadian Experience Class",
             drawSize: "1,842",
             drawCRS: "397",
-            drawCutOff: "April 24, 2021 at 12:09:24 UTC"
+            drawCutOff: "April 24, 2021 at 12:09:24 UTC",
+            drawDistributionAsOn: Date(),
+            pool: []
         )
     ).frame(height: 100)
 }

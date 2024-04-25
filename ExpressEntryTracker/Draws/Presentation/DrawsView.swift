@@ -10,8 +10,9 @@ import DesignSystem
 import WebKit
 
 struct DrawsView: View {
-    @State var viewModel: IDrawsViewModel
     
+    @State var viewModel: IDrawsViewModel
+
     var body: some View {
         NavigationStack {
             switch viewModel.state {
@@ -34,15 +35,21 @@ struct DrawsView: View {
     }
     
     @ViewBuilder private func loadedState(draws: [Draw]) -> some View {
-        List(draws, id: \.drawNumber) { draw in
-            ZStack {
-                NavigationLink(draw.drawName, value: draw).opacity(0)
-                DrawItemView(draw: draw)
+        List {
+            Section {
+                switch viewModel.viewMode {
+                case .rounds:
+                    rounds(draws: draws)
+                case .pool:
+                    pool(draws: draws)
+                }
+            } header: {
+                viewModePicker
             }
             .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-            .listRowSeparator(.hidden)
         }
-        .listStyle(.plain)
+        .listStyle(.grouped)
+        .scrollContentBackground(.hidden)
         .navigationDestination(for: Draw.self, destination: { draw in
             WebView(url: draw.drawNumberURL)
                 .navigationTitle(draw.drawName)
@@ -78,7 +85,7 @@ struct DrawsView: View {
             }
         }
     }
-        
+    
     @ViewBuilder private func errorState() -> some View {
         VStack(spacing: 16) {
             Image(systemName: "exclamationmark.warninglight")
@@ -101,6 +108,48 @@ struct DrawsView: View {
         }
         .padding(24)
     }
+    
+    @ViewBuilder private var viewModePicker: some View {
+        Picker("View Mode", selection: $viewModel.viewMode) {
+            ForEach(DrawsViewMode.allCases) {
+                Text($0.title).tag($0)
+                    .textCase(nil)
+            }
+        }
+        .pickerStyle(.segmented)
+        .padding(24)
+    }
+    
+    @ViewBuilder private func rounds(draws: [Draw]) -> some View {
+        ForEach(draws, id: \.drawNumber) { draw in
+            ZStack {
+                NavigationLink(draw.drawName, value: draw).opacity(0)
+                DrawItemView(draw: draw)
+            }
+        }.listRowSeparator(.hidden)
+    }
+    
+    @ViewBuilder private func pool(draws: [Draw]) -> some View {
+        if let draw = draws.first {
+            Text(viewModel.poolTitle(date: draw.drawDistributionAsOn))
+                .multilineTextAlignment(.center)
+                .font(.title3)
+                .frame(maxWidth: .infinity)
+                .padding()
+                .listRowSeparator(.hidden)
+            ForEach(draw.pool, id: \.range) { pool in
+                HStack {
+                    Text(pool.range.rawValue)
+                        .font(.headline)
+                    Spacer()
+                    Text(pool.candidates)
+                        .font(.subheadline)
+                }
+                .padding(.horizontal, 24)
+            }
+        }
+    }
+    
     
     private func refresh() async {
         await viewModel.refresh()

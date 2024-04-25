@@ -16,7 +16,7 @@ public struct APIClient: IAPIClient {
             throw APIClientError.invalidURL
         }
         
-        var urlRequest = URLRequest(url: url)
+        var urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData)
         urlRequest.httpMethod = endPoint.method.rawValue
         let (data, _) = try await session.data(for: urlRequest)
         
