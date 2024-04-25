@@ -47,4 +47,8 @@ struct PreviewDrawsViewModel: IDrawsViewModel {
     func poolTitle(date: Date) -> String {
         "CRS score distribution of candidates in the Express Entry pool as of \(dateFormatter.string(from: date))"
     }
+    
+    func history(for range: ScoreRange) -> PoolHistory {
+        PreviewPoolDetailViewModel.poolHistory
+    }
 }

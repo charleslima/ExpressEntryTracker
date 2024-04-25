@@ -55,6 +55,10 @@ struct DrawsView: View {
                 .navigationTitle(draw.drawName)
                 .navigationBarTitleDisplayMode(.inline)
         })
+        .navigationDestination(for: ScorePool.self, destination: { pool in
+            PoolDetail(viewModel: PoolDetailViewModel(poolHistory: viewModel.history(for: pool.range)))
+                .navigationTitle(pool.range.rawValue)
+        })
         .toolbar(content: {
             Menu {
                 Button(action: {
@@ -138,12 +142,15 @@ struct DrawsView: View {
                 .padding()
                 .listRowSeparator(.hidden)
             ForEach(draw.pool, id: \.range) { pool in
-                HStack {
-                    Text(pool.range.rawValue)
-                        .font(.headline)
-                    Spacer()
-                    Text(pool.candidates)
-                        .font(.subheadline)
+                ZStack {
+                    NavigationLink(viewModel.poolTitle(date: draw.drawDistributionAsOn), value: pool).opacity(0)
+                    HStack {
+                        Text(pool.range.rawValue)
+                            .font(.headline)
+                        Spacer()
+                        Text(pool.candidates)
+                            .font(.subheadline)
+                    }
                 }
                 .padding(.horizontal, 24)
             }

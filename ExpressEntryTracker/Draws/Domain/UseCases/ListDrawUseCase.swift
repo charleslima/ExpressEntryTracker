@@ -37,11 +37,11 @@ class ListDrawUseCase: IListDrawUseCase {
     }
     
     private func extractPool(from draw: API.Draw) -> [ScorePool] {
-        return ScoreRange.allCases.map { range in
+        return ScoreRange.allCases.compactMap { range in
             switch range {
             case .dd1: ScorePool(range: range, candidates: draw.dd1)
             case .dd2: ScorePool(range: range, candidates: draw.dd2)
-            case .dd3: ScorePool(range: range, candidates: draw.dd3)
+            case .dd3: nil
             case .dd4: ScorePool(range: range, candidates: draw.dd4)
             case .dd5: ScorePool(range: range, candidates: draw.dd5)
             case .dd6: ScorePool(range: range, candidates: draw.dd6)

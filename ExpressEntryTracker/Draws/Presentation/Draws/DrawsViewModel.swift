@@ -31,6 +31,7 @@ protocol IDrawsViewModel {
     func fetch() async
     func refresh() async
     func poolTitle(date: Date) -> String
+    func history(for range: ScoreRange) -> PoolHistory
 }
 
 @Observable class DrawsViewModel: IDrawsViewModel {
@@ -84,6 +85,20 @@ protocol IDrawsViewModel {
     
     func poolTitle(date: Date) -> String {
         "CRS score distribution of candidates in the Express Entry pool as of \(dateFormatter.string(from: date))"
+    }
+    
+    func history(for range: ScoreRange) -> PoolHistory {
+        let pools = self.draws.compactMap({ draw -> (Date, Int)? in
+            if let pool = draw.pool.first(where: { pool in pool.range == range }),
+            let candidates = Int(pool.candidates) {
+                return (draw.drawDistributionAsOn, candidates)
+            }
+            return nil
+        })
+        let marks = pools.compactMap { date, candidates in
+            return candidates > 0 ? PoolHistory.Mark(date: date, candidates: candidates) : nil
+        }
+        return PoolHistory(range: range, history: Array(Set(marks)).sorted(by: { $0.date > $1.date }))
     }
     
 }
