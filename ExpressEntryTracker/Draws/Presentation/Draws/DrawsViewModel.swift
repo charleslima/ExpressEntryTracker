@@ -88,17 +88,21 @@ protocol IDrawsViewModel {
     }
     
     func history(for range: ScoreRange) -> PoolHistory {
-        let pools = self.draws.compactMap({ draw -> (Date, Int)? in
-            if let pool = draw.pool.first(where: { pool in pool.range == range }),
-            let candidates = Int(pool.candidates) {
-                return (draw.drawDistributionAsOn, candidates)
+        var dict = [Date: Int]()
+        self.draws.forEach { draw in
+            if let pool = draw.pool.first(where: { $0.range == range }) {
+                dict[draw.drawDistributionAsOn] = Int(pool.candidates.replacingOccurrences(of: ",", with: ""))
+            }
+        }
+        
+        let marks = dict.keys.sorted().compactMap { date in
+            if let candidates = dict[date], candidates > 0 {
+                return PoolHistory.Mark(date: date, candidates: candidates)
             }
             return nil
-        })
-        let marks = pools.compactMap { date, candidates in
-            return candidates > 0 ? PoolHistory.Mark(date: date, candidates: candidates) : nil
         }
-        return PoolHistory(range: range, history: Array(Set(marks)).sorted(by: { $0.date > $1.date }))
+
+        return PoolHistory(range: range, history: marks)
     }
     
 }
