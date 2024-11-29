@@ -34,6 +34,7 @@ struct PoolDetail: View {
                             x: .value("Date", mark.date),
                             y: .value("Candidates", mark.candidates)
                         )
+                        .interpolationMethod(.catmullRom)
                         .foregroundStyle(Color.pink)
                         .symbol {
                             Circle()
@@ -43,15 +44,17 @@ struct PoolDetail: View {
                         AreaMark(
                             x: .value("Date", mark.date),
                             y: .value("Candidates", mark.candidates)
-                        ).foregroundStyle(gradientColor)
+                        )
+                        .interpolationMethod(.catmullRom)
+                        .foregroundStyle(gradientColor)
                     }
                 }
                 .chartXAxis(content: {
-                    AxisMarks(values: .stride(by: .month)) { value in
-                        AxisTick()
-                        AxisGridLine()
-                        AxisValueLabel(format: .dateTime.month().year(), centered: false, collisionResolution: AxisValueLabelCollisionResolution.greedy)
-                    }
+                        AxisMarks(values: .stride(by: .month, roundLowerBound: true)) { value in
+                            AxisTick()
+                            AxisGridLine()
+                            AxisValueLabel(format: .dateTime.month().year(), centered: false, collisionResolution: AxisValueLabelCollisionResolution.greedy)
+                        }
                 })
                 .frame(height: 300)
                 .chartScrollableAxes(.horizontal)

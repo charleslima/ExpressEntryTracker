@@ -35,51 +35,53 @@ struct DrawsView: View {
     }
     
     @ViewBuilder private func loadedState(draws: [Draw]) -> some View {
-        List {
-            Section {
-                switch viewModel.viewMode {
-                case .rounds:
-                    rounds(draws: draws)
-                case .pool:
-                    pool(draws: draws)
-                }
-            } header: {
-                viewModePicker
-            }
-            .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-        }
-        .listStyle(.grouped)
-        .scrollContentBackground(.hidden)
-        .navigationDestination(for: Draw.self, destination: { draw in
-            WebView(url: draw.drawNumberURL)
-                .navigationTitle(draw.drawName)
-                .navigationBarTitleDisplayMode(.inline)
-        })
-        .navigationDestination(for: ScorePool.self, destination: { pool in
-            PoolDetail(viewModel: PoolDetailViewModel(poolHistory: viewModel.history(for: pool.range)))
-                .navigationTitle(pool.range.rawValue)
-        })
-        .toolbar(content: {
-            Menu {
-                Button(action: {
-                    self.viewModel.filter = nil
-                }, label: {
-                    HStack {
-                        Image(systemName: "xmark.circle")
-                        Text("Clear Filter")
+        GeometryReader { proxy in
+            List {
+                Section {
+                    switch viewModel.viewMode {
+                    case .rounds:
+                        rounds(draws: draws, availableScreenHeight: proxy.size.height)
+                    case .pool:
+                        pool(draws: draws)
                     }
-                })
-                Picker("Filter", selection: $viewModel.filter) {
-                    ForEach(viewModel.filterOptions, id: \.self) {
-                        if let option = $0 {
-                            Text(option).tag(option as String?)
+                } header: {
+                    viewModePicker
+                }
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+            }
+            .listStyle(.grouped)
+            .scrollContentBackground(.hidden)
+            .navigationDestination(for: Draw.self, destination: { draw in
+                WebView(url: draw.drawNumberURL)
+                    .navigationTitle(draw.drawName)
+                    .navigationBarTitleDisplayMode(.inline)
+            })
+            .navigationDestination(for: ScorePool.self, destination: { pool in
+                PoolDetail(viewModel: PoolDetailViewModel(poolHistory: viewModel.history(for: pool.range)))
+                    .navigationTitle(pool.range.rawValue)
+            })
+            .toolbar(content: {
+                Menu {
+                    Button(action: {
+                        self.viewModel.filter = nil
+                    }, label: {
+                        HStack {
+                            Image(systemName: "xmark.circle")
+                            Text("Clear Filter")
+                        }
+                    })
+                    Picker("Filter", selection: $viewModel.filter) {
+                        ForEach(viewModel.filterOptions, id: \.self) {
+                            if let option = $0 {
+                                Text(option).tag(option as String?)
+                            }
                         }
                     }
+                } label: {
+                    Image(systemName: viewModel.filter != nil ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
                 }
-            } label: {
-                Image(systemName: viewModel.filter != nil ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
-            }
-        })
+            })
+        }
     }
     
     @ViewBuilder private func loadingState() -> some View {
@@ -124,11 +126,17 @@ struct DrawsView: View {
         .padding(24)
     }
     
-    @ViewBuilder private func rounds(draws: [Draw]) -> some View {
+    @ViewBuilder private func rounds(draws: [Draw], availableScreenHeight: CGFloat) -> some View {
         ForEach(draws, id: \.drawNumber) { draw in
             ZStack {
                 NavigationLink(draw.drawName, value: draw).opacity(0)
                 DrawItemView(draw: draw)
+                    .visualEffect { content, proxy in
+                        let screenPosition = proxy.frame(in: .global).origin.y / availableScreenHeight
+                        return content
+                            .blur(radius: min(3, max(0, (screenPosition * 10) - 9)))
+                            .scaleEffect((screenPosition/10)+0.9, anchor: .bottom)
+                    }
             }
         }.listRowSeparator(.hidden)
     }
