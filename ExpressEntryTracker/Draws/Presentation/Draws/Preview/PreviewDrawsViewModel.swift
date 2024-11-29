@@ -2,9 +2,9 @@ import API
 import Utilities
 
 struct PreviewDrawsViewModel: IDrawsViewModel {
-    
     var state: ViewState<[Draw]>
     var filter: String? = nil
+    var displayFilter: Bool { viewMode == .rounds }
     var filterOptions: [String?] = ["Canadian Experience Class", "STEM"]
     var viewMode: DrawsViewMode = .rounds
     

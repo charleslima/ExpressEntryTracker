@@ -61,24 +61,26 @@ struct DrawsView: View {
                     .navigationTitle(pool.range.rawValue)
             })
             .toolbar(content: {
-                Menu {
-                    Button(action: {
-                        self.viewModel.filter = nil
-                    }, label: {
-                        HStack {
-                            Image(systemName: "xmark.circle")
-                            Text("Clear Filter")
-                        }
-                    })
-                    Picker("Filter", selection: $viewModel.filter) {
-                        ForEach(viewModel.filterOptions, id: \.self) {
-                            if let option = $0 {
-                                Text(option).tag(option as String?)
+                if viewModel.displayFilter {
+                    Menu {
+                        Button(action: {
+                            self.viewModel.filter = nil
+                        }, label: {
+                            HStack {
+                                Image(systemName: "xmark.circle")
+                                Text("Clear Filter")
+                            }
+                        })
+                        Picker("Filter", selection: $viewModel.filter) {
+                            ForEach(viewModel.filterOptions, id: \.self) {
+                                if let option = $0 {
+                                    Text(option).tag(option as String?)
+                                }
                             }
                         }
+                    } label: {
+                        Image(systemName: viewModel.filter != nil ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
                     }
-                } label: {
-                    Image(systemName: viewModel.filter != nil ? "line.3.horizontal.decrease.circle.fill" : "line.3.horizontal.decrease.circle")
                 }
             })
         }
@@ -134,7 +136,7 @@ struct DrawsView: View {
                     .visualEffect { content, proxy in
                         let screenPosition = proxy.frame(in: .global).origin.y / availableScreenHeight
                         return content
-                            .blur(radius: min(3, max(0, (screenPosition * 10) - 9)))
+                            .blur(radius: min(3, max(0, (screenPosition * 10) - 9.5)))
                             .scaleEffect((screenPosition/10)+0.9, anchor: .bottom)
                     }
             }

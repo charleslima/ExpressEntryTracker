@@ -27,6 +27,7 @@ protocol IDrawsViewModel {
     var filter: String? { get set }
     var filterOptions: [String?] { get }
     var state: ViewState<[Draw]> { get }
+    var displayFilter: Bool { get }
     var viewMode: DrawsViewMode { get set }
     func fetch() async
     func refresh() async
@@ -55,6 +56,10 @@ protocol IDrawsViewModel {
             }
             state = .loaded(filteredDraws)
         }
+    }
+    
+    var displayFilter: Bool {
+        self.viewMode == .rounds
     }
     
     var filterOptions: [String?] = []
