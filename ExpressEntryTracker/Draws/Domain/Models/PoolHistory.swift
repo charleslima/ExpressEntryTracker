@@ -16,3 +16,10 @@ struct PoolHistory {
         var candidates: Int
     }
 }
+
+extension PoolHistory: Equatable {
+    static func == (lhs: PoolHistory, rhs: PoolHistory) -> Bool {
+        lhs.range == rhs.range &&
+        lhs.history == rhs.history
+    }
+}
