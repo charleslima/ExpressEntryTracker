@@ -50,6 +50,7 @@
 		872942FA2BD1B04400E482F1 /* ListDrawUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872942F92BD1B04400E482F1 /* ListDrawUseCase.swift */; };
 		872942FD2BD1BEF600E482F1 /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872942FC2BD1BEF600E482F1 /* Webview.swift */; };
 		872942FF2BD2BEDF00E482F1 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872942FE2BD2BEDF00E482F1 /* Config.swift */; };
+		87397DF82CFCADC6006DFF3A /* GetPoolHistoryUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87397DF72CFCADB4006DFF3A /* GetPoolHistoryUseCase.swift */; };
 		874EB6B72BDA9D5300DE3C5A /* ScoreRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874EB6B62BDA9D5300DE3C5A /* ScoreRange.swift */; };
 		874EB6B92BDA9E8900DE3C5A /* ScorePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874EB6B82BDA9E8900DE3C5A /* ScorePool.swift */; };
 		8793CF992BD03106009FD61A /* InboundDrawResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8793CF982BD03106009FD61A /* InboundDrawResponse.swift */; };
@@ -200,6 +201,7 @@
 		872942F92BD1B04400E482F1 /* ListDrawUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDrawUseCase.swift; sourceTree = "<group>"; };
 		872942FC2BD1BEF600E482F1 /* Webview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
 		872942FE2BD2BEDF00E482F1 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		87397DF72CFCADB4006DFF3A /* GetPoolHistoryUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPoolHistoryUseCase.swift; sourceTree = "<group>"; };
 		874EB6B62BDA9D5300DE3C5A /* ScoreRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreRange.swift; sourceTree = "<group>"; };
 		874EB6B82BDA9E8900DE3C5A /* ScorePool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePool.swift; sourceTree = "<group>"; };
 		8793CF982BD03106009FD61A /* InboundDrawResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboundDrawResponse.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 			isa = PBXGroup;
 			children = (
 				872942F92BD1B04400E482F1 /* ListDrawUseCase.swift */,
+				87397DF72CFCADB4006DFF3A /* GetPoolHistoryUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -947,6 +950,7 @@
 				87F9C6442BD07F9A00D20A1D /* DrawItemView.swift in Sources */,
 				87025AC32BD0299D0070FE2E /* DrawsViewModel.swift in Sources */,
 				872942A82BD1693B00E482F1 /* PreviewDrawsViewModel.swift in Sources */,
+				87397DF82CFCADC6006DFF3A /* GetPoolHistoryUseCase.swift in Sources */,
 				874EB6B72BDA9D5300DE3C5A /* ScoreRange.swift in Sources */,
 				874EB6B92BDA9E8900DE3C5A /* ScorePool.swift in Sources */,
 				87F7FA1B2BDAAC9A00D7CD59 /* PoolHistory.swift in Sources */,

@@ -44,6 +44,7 @@ protocol IDrawsViewModel {
     }()
     
     let listDrawUseCase: IListDrawUseCase
+    let getPoolHistoryUseCase: IGetPoolHistoryUseCase
     var state: ViewState<[Draw]> = .loading
     var viewMode: DrawsViewMode = .rounds
     
@@ -65,8 +66,10 @@ protocol IDrawsViewModel {
     var filterOptions: [String?] = []
     var draws: [Draw] = []
     
-    init(listDrawUseCase: IListDrawUseCase = ListDrawUseCase()) {
+    init(listDrawUseCase: IListDrawUseCase = ListDrawUseCase(),
+         getPoolHistoryUseCase: IGetPoolHistoryUseCase = GetPoolHistoryUseCase()) {
         self.listDrawUseCase = listDrawUseCase
+        self.getPoolHistoryUseCase = getPoolHistoryUseCase
     }
     
     func refresh() async {
@@ -93,21 +96,7 @@ protocol IDrawsViewModel {
     }
     
     func history(for range: ScoreRange) -> PoolHistory {
-        var dict = [Date: Int]()
-        self.draws.forEach { draw in
-            if let pool = draw.pool.first(where: { $0.range == range }) {
-                dict[draw.drawDistributionAsOn] = Int(pool.candidates.replacingOccurrences(of: ",", with: ""))
-            }
-        }
-        
-        let marks = dict.keys.sorted().compactMap { date in
-            if let candidates = dict[date], candidates > 0 {
-                return PoolHistory.Mark(date: date, candidates: candidates)
-            }
-            return nil
-        }
-
-        return PoolHistory(range: range, history: marks)
+        return getPoolHistoryUseCase.execute(draws: self.draws, range: range)
     }
     
 }
