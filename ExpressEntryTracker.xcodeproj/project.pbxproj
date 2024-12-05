@@ -374,8 +374,8 @@
 		87025A8E2BD01F370070FE2E /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				87F7FA1D2BDAAD6300D7CD59 /* Pool */,
 				87F7FA1C2BDAAD5600D7CD59 /* Draws */,
+				87F7FA1D2BDAAD6300D7CD59 /* Pool */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -527,8 +527,8 @@
 			children = (
 				874EB6B62BDA9D5300DE3C5A /* ScoreRange.swift */,
 				87F7FA1A2BDAAC9A00D7CD59 /* PoolHistory.swift */,
-				872942F72BD1B01000E482F1 /* Draw.swift */,
 				874EB6B82BDA9E8900DE3C5A /* ScorePool.swift */,
+				872942F72BD1B01000E482F1 /* Draw.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";

@@ -14,9 +14,9 @@ struct DrawItemView: View {
     var body: some View {
         HStack(spacing: 8) {
             VStack(alignment: .leading) {
-                Button("#\(draw.drawNumber)") {
-                    // TODO
-                }
+                Text("#\(draw.drawNumber)")
+                    .font(.caption)
+                    .foregroundStyle(.blue)
                 .font(.caption)
                 Text(draw.drawName)
                     .font(.headline)

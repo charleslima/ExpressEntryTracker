@@ -88,7 +88,7 @@ struct DrawsView: View {
     
     @ViewBuilder private func loadingState() -> some View {
         ScrollView {
-            ForEach((1...10).reversed(), id: \.self) { id in
+            ForEach((1...10), id: \.self) { id in
                 DrawItemShimmerView()
             }
         }
