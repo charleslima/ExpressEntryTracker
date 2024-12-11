@@ -3,7 +3,7 @@ name: PR Testing
 env:
   SCHEME: ExpressEntryTracker
   PLATFORM: iOS Simulator
-  DEVICE: iPhone 14
+  DEVICE: iPhone 16 Pro
   
 on:
   pull_request:
