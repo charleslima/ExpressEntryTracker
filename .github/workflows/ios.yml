@@ -1,0 +1,31 @@
+name: PR Testing
+
+env:
+  SCHEME: ExpressEntryTracker
+  
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build and Test default scheme using any available iPhone simulator
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        env:
+          scheme: "$SCHEME"
+          platform: ${{ 'iOS Simulator' }}
+          device: ${{ 'iPhone 16 Pro' }}
+        run: |
+          xcodebuild build-for-testing -scheme "$SCHEME" -destination "platform=$platform,name=$device"
+      - name: Test
+        env:
+          scheme: $SCHEME
+          platform: ${{ 'iOS Simulator' }}
+          device: ${{ 'iPhone 16 Pro' }}
+        run: |
+          xcodebuild test-without-building -scheme "$SCHEME" -destination "platform=$platform,name=$device"
