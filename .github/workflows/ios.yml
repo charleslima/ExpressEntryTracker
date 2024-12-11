@@ -2,6 +2,8 @@ name: PR Testing
 
 env:
   SCHEME: ExpressEntryTracker
+  PLATFORM: iOS Simulator
+  DEVICE: iPhone 14
   
 on:
   pull_request:
@@ -10,23 +12,26 @@ on:
   
 jobs:
   build:
-    name: Build and Test default scheme using any available iPhone simulator
+    name: Build and Test
     runs-on: macos-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v2
+        with:
+          xcode-version: '16.1'
+
       - name: Build
-        env:
-          scheme: "$SCHEME"
-          platform: ${{ 'iOS Simulator' }}
-          device: ${{ 'iPhone 16 Pro' }}
         run: |
-          xcodebuild build-for-testing -scheme "$SCHEME" -destination "platform=$platform,name=$device"
+           xcodebuild build-for-testing \
+            -scheme "$SCHEME" \
+            -destination "platform=$PLATFORM,name=$DEVICE" \
+            -allowProvisioningUpdates
       - name: Test
-        env:
-          scheme: $SCHEME
-          platform: ${{ 'iOS Simulator' }}
-          device: ${{ 'iPhone 16 Pro' }}
         run: |
-          xcodebuild test-without-building -scheme "$SCHEME" -destination "platform=$platform,name=$device"
+          xcodebuild test-without-building \
+            -scheme "$SCHEME" \
+            -destination "platform=$PLATFORM,name=$DEVICE" \
+            -allowProvisioningUpdates
