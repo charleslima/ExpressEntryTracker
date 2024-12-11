@@ -40,3 +40,4 @@ The app is structured with **Clean Architecture** to ensure separation of concer
 1. **Domain Layer**: Contains `UseCases` like `GetPoolHistoryUseCase` for encapsulating business logic.  
 2. **Data Layer**: Implements `Repositories` that fetch and map data from the API to domain models.  
 3. **Presentation Layer**: Uses `ViewModels` (with MVVM) for managing UI state.
+4. 
