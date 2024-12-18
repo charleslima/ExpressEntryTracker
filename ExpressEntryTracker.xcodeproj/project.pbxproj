@@ -26,7 +26,6 @@
 		8729429F2BD1660F00E482F1 /* Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8729429E2BD1660F00E482F1 /* Draw.swift */; };
 		872942A22BD166BA00E482F1 /* IDrawRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872942A12BD166BA00E482F1 /* IDrawRepository.swift */; };
 		872942A52BD1674A00E482F1 /* DrawRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872942A42BD1674A00E482F1 /* DrawRepository.swift */; };
-		872942A82BD1693B00E482F1 /* PreviewDrawsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872942A72BD1693B00E482F1 /* PreviewDrawsViewModel.swift */; };
 		872942B22BD16A6000E482F1 /* DesignSystem.docc in Sources */ = {isa = PBXBuildFile; fileRef = 872942B12BD16A6000E482F1 /* DesignSystem.docc */; };
 		872942B82BD16A6000E482F1 /* DesignSystem.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 872942AE2BD16A6000E482F1 /* DesignSystem.framework */; };
 		872942BF2BD16A6000E482F1 /* DesignSystemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872942BE2BD16A6000E482F1 /* DesignSystemTests.swift */; };
@@ -56,6 +55,8 @@
 		874EB6B92BDA9E8900DE3C5A /* ScorePool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874EB6B82BDA9E8900DE3C5A /* ScorePool.swift */; };
 		8752A5822D13069300B5CCCE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A5812D13068B00B5CCCE /* AppDelegate.swift */; };
 		8752A5842D1308EF00B5CCCE /* DrawsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A5832D1308EB00B5CCCE /* DrawsViewController.swift */; };
+		8752A5862D130BF200B5CCCE /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A5852D130BEC00B5CCCE /* ViewExtension.swift */; };
+		8752A5892D130F8500B5CCCE /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A5882D130F7A00B5CCCE /* UIViewControllerExtension.swift */; };
 		8793CF992BD03106009FD61A /* InboundDrawResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8793CF982BD03106009FD61A /* InboundDrawResponse.swift */; };
 		87F7FA1B2BDAAC9A00D7CD59 /* PoolHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F7FA1A2BDAAC9A00D7CD59 /* PoolHistory.swift */; };
 		87F7FA1F2BDAAD7F00D7CD59 /* PoolDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F7FA1E2BDAAD7F00D7CD59 /* PoolDetail.swift */; };
@@ -174,7 +175,6 @@
 		8729429E2BD1660F00E482F1 /* Draw.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Draw.swift; sourceTree = "<group>"; };
 		872942A12BD166BA00E482F1 /* IDrawRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDrawRepository.swift; sourceTree = "<group>"; };
 		872942A42BD1674A00E482F1 /* DrawRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawRepository.swift; sourceTree = "<group>"; };
-		872942A72BD1693B00E482F1 /* PreviewDrawsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewDrawsViewModel.swift; sourceTree = "<group>"; };
 		872942AE2BD16A6000E482F1 /* DesignSystem.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DesignSystem.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		872942B02BD16A6000E482F1 /* DesignSystem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DesignSystem.h; sourceTree = "<group>"; };
 		872942B12BD16A6000E482F1 /* DesignSystem.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = DesignSystem.docc; sourceTree = "<group>"; };
@@ -202,6 +202,8 @@
 		874EB6B82BDA9E8900DE3C5A /* ScorePool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePool.swift; sourceTree = "<group>"; };
 		8752A5812D13068B00B5CCCE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8752A5832D1308EB00B5CCCE /* DrawsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawsViewController.swift; sourceTree = "<group>"; };
+		8752A5852D130BEC00B5CCCE /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		8752A5882D130F7A00B5CCCE /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		8793CF982BD03106009FD61A /* InboundDrawResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboundDrawResponse.swift; sourceTree = "<group>"; };
 		87F7FA1A2BDAAC9A00D7CD59 /* PoolHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolHistory.swift; sourceTree = "<group>"; };
 		87F7FA1E2BDAAD7F00D7CD59 /* PoolDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolDetail.swift; sourceTree = "<group>"; };
@@ -424,14 +426,6 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
-		872942A62BD1693000E482F1 /* Preview */ = {
-			isa = PBXGroup;
-			children = (
-				872942A72BD1693B00E482F1 /* PreviewDrawsViewModel.swift */,
-			);
-			path = Preview;
-			sourceTree = "<group>";
-		};
 		872942AF2BD16A6000E482F1 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -470,6 +464,8 @@
 		872942D72BD1A5CE00E482F1 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				8752A5882D130F7A00B5CCCE /* UIViewControllerExtension.swift */,
+				8752A5852D130BEC00B5CCCE /* ViewExtension.swift */,
 				872942D82BD1A5CE00E482F1 /* Utilities.h */,
 				872942F32BD1A5DE00E482F1 /* ViewState.swift */,
 				872942D92BD1A5CE00E482F1 /* Utilities.docc */,
@@ -551,7 +547,6 @@
 		87F7FA1C2BDAAD5600D7CD59 /* Draws */ = {
 			isa = PBXGroup;
 			children = (
-				872942A62BD1693000E482F1 /* Preview */,
 				87025A652BD01C850070FE2E /* DrawsView.swift */,
 				8752A5832D1308EB00B5CCCE /* DrawsViewController.swift */,
 				87025AC22BD0299D0070FE2E /* DrawsViewModel.swift */,
@@ -938,7 +933,6 @@
 				87F9C6442BD07F9A00D20A1D /* DrawItemView.swift in Sources */,
 				8752A5822D13069300B5CCCE /* AppDelegate.swift in Sources */,
 				87025AC32BD0299D0070FE2E /* DrawsViewModel.swift in Sources */,
-				872942A82BD1693B00E482F1 /* PreviewDrawsViewModel.swift in Sources */,
 				87397DF82CFCADC6006DFF3A /* GetPoolHistoryUseCase.swift in Sources */,
 				874EB6B72BDA9D5300DE3C5A /* ScoreRange.swift in Sources */,
 				874EB6B92BDA9E8900DE3C5A /* ScorePool.swift in Sources */,
@@ -1007,7 +1001,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8752A5892D130F8500B5CCCE /* UIViewControllerExtension.swift in Sources */,
 				872942F42BD1A5DE00E482F1 /* ViewState.swift in Sources */,
+				8752A5862D130BF200B5CCCE /* ViewExtension.swift in Sources */,
 				872942DA2BD1A5CE00E482F1 /* Utilities.docc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

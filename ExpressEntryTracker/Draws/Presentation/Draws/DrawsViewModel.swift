@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import Utilities
+import Combine
 
 enum DrawsViewMode: Int, CaseIterable, Identifiable {
     var id: Int { self.rawValue }
@@ -26,26 +27,21 @@ enum DrawsViewMode: Int, CaseIterable, Identifiable {
 protocol IDrawsViewModel {
     var filter: String? { get set }
     var filterOptions: [String?] { get }
-    var state: ViewState<[Draw]> { get }
+    var state: CurrentValueSubject<ViewState<[Draw]>, Never> { get }
     var displayFilter: Bool { get }
     var viewMode: DrawsViewMode { get set }
     func fetch() async
     func refresh() async
-    func poolTitle(date: Date) -> String
     func history(for range: ScoreRange) -> PoolHistory
 }
 
-@Observable class DrawsViewModel: IDrawsViewModel {
-    
-    private let dateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        return dateFormatter
-    }()
+class DrawsViewModel: IDrawsViewModel {
     
     let listDrawUseCase: IListDrawUseCase
     let getPoolHistoryUseCase: IGetPoolHistoryUseCase
-    var state: ViewState<[Draw]> = .loading
+    
+    var state: CurrentValueSubject<ViewState<[Draw]>, Never> = .init(.loading)
+    
     var viewMode: DrawsViewMode = .rounds
     
     var filter: String? = nil {
@@ -55,7 +51,7 @@ protocol IDrawsViewModel {
             } else {
                 draws
             }
-            state = .loaded(filteredDraws)
+            self.state.send(.loaded(filteredDraws))
         }
     }
     
@@ -77,7 +73,7 @@ protocol IDrawsViewModel {
     }
     
     func fetch() async {
-        state = .loading
+        state.send(.loading)
         await fetchDraws()
     }
 
@@ -85,15 +81,13 @@ protocol IDrawsViewModel {
         do {
             self.draws = try await listDrawUseCase.execute()
             self.filterOptions = Array(Set(draws.map({ $0.drawName })))
-            state = .loaded(draws)
+            state.send(.loaded(draws))
         } catch {
-            state = .error(error)
+            state.send(.error(error))
         }
     }
     
-    func poolTitle(date: Date) -> String {
-        "CRS score distribution of candidates in the Express Entry pool as of \(dateFormatter.string(from: date))"
-    }
+    
     
     func history(for range: ScoreRange) -> PoolHistory {
         return getPoolHistoryUseCase.execute(draws: self.draws, range: range)
