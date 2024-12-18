@@ -10,6 +10,7 @@ import UIKit
 public extension UIViewController {
     
     func setView(newView: UIView) {
+        newView.prepareForConstraints()
         self.view.addSubview(newView)
         NSLayoutConstraint.activate([
             newView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),

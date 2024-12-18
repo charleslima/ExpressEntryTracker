@@ -16,7 +16,6 @@ public struct WebView: UIViewRepresentable {
     public init(url: String) {
         webView = WKWebView(frame: .zero)
         self.url = url
-      
     }
     
     public func makeUIView(context: Context) -> WKWebView {

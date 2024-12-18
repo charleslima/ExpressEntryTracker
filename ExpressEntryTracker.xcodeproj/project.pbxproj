@@ -57,6 +57,10 @@
 		8752A5842D1308EF00B5CCCE /* DrawsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A5832D1308EB00B5CCCE /* DrawsViewController.swift */; };
 		8752A5862D130BF200B5CCCE /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A5852D130BEC00B5CCCE /* ViewExtension.swift */; };
 		8752A5892D130F8500B5CCCE /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A5882D130F7A00B5CCCE /* UIViewControllerExtension.swift */; };
+		8752A58C2D1369FE00B5CCCE /* LoadingDrawsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A58B2D1369FC00B5CCCE /* LoadingDrawsDataSource.swift */; };
+		8752A58E2D136A1400B5CCCE /* LoadedDrawsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A58D2D136A1200B5CCCE /* LoadedDrawsDataSource.swift */; };
+		8752A5902D136A3600B5CCCE /* EmptyDrawsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A58F2D136A3500B5CCCE /* EmptyDrawsDataSource.swift */; };
+		8752A5922D136B3400B5CCCE /* DrawDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8752A5912D136B2C00B5CCCE /* DrawDetailsViewController.swift */; };
 		8793CF992BD03106009FD61A /* InboundDrawResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8793CF982BD03106009FD61A /* InboundDrawResponse.swift */; };
 		87F7FA1B2BDAAC9A00D7CD59 /* PoolHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F7FA1A2BDAAC9A00D7CD59 /* PoolHistory.swift */; };
 		87F7FA1F2BDAAD7F00D7CD59 /* PoolDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87F7FA1E2BDAAD7F00D7CD59 /* PoolDetail.swift */; };
@@ -204,6 +208,10 @@
 		8752A5832D1308EB00B5CCCE /* DrawsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawsViewController.swift; sourceTree = "<group>"; };
 		8752A5852D130BEC00B5CCCE /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		8752A5882D130F7A00B5CCCE /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		8752A58B2D1369FC00B5CCCE /* LoadingDrawsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingDrawsDataSource.swift; sourceTree = "<group>"; };
+		8752A58D2D136A1200B5CCCE /* LoadedDrawsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadedDrawsDataSource.swift; sourceTree = "<group>"; };
+		8752A58F2D136A3500B5CCCE /* EmptyDrawsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyDrawsDataSource.swift; sourceTree = "<group>"; };
+		8752A5912D136B2C00B5CCCE /* DrawDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawDetailsViewController.swift; sourceTree = "<group>"; };
 		8793CF982BD03106009FD61A /* InboundDrawResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboundDrawResponse.swift; sourceTree = "<group>"; };
 		87F7FA1A2BDAAC9A00D7CD59 /* PoolHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolHistory.swift; sourceTree = "<group>"; };
 		87F7FA1E2BDAAD7F00D7CD59 /* PoolDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoolDetail.swift; sourceTree = "<group>"; };
@@ -348,6 +356,7 @@
 		87025A8E2BD01F370070FE2E /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				8752A5932D136B5600B5CCCE /* Details */,
 				87F7FA1C2BDAAD5600D7CD59 /* Draws */,
 				87F7FA1D2BDAAD6300D7CD59 /* Pool */,
 			);
@@ -544,9 +553,28 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
+		8752A58A2D1369E800B5CCCE /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				8752A58F2D136A3500B5CCCE /* EmptyDrawsDataSource.swift */,
+				8752A58D2D136A1200B5CCCE /* LoadedDrawsDataSource.swift */,
+				8752A58B2D1369FC00B5CCCE /* LoadingDrawsDataSource.swift */,
+			);
+			path = DataSources;
+			sourceTree = "<group>";
+		};
+		8752A5932D136B5600B5CCCE /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				8752A5912D136B2C00B5CCCE /* DrawDetailsViewController.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
 		87F7FA1C2BDAAD5600D7CD59 /* Draws */ = {
 			isa = PBXGroup;
 			children = (
+				8752A58A2D1369E800B5CCCE /* DataSources */,
 				87025A652BD01C850070FE2E /* DrawsView.swift */,
 				8752A5832D1308EB00B5CCCE /* DrawsViewController.swift */,
 				87025AC22BD0299D0070FE2E /* DrawsViewModel.swift */,
@@ -923,12 +951,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				87F7FA1F2BDAAD7F00D7CD59 /* PoolDetail.swift in Sources */,
+				8752A58C2D1369FE00B5CCCE /* LoadingDrawsDataSource.swift in Sources */,
+				8752A5922D136B3400B5CCCE /* DrawDetailsViewController.swift in Sources */,
 				872942F82BD1B01000E482F1 /* Draw.swift in Sources */,
 				87F7FA242BDAAE2200D7CD59 /* PreviewPoolDetailViewModel.swift in Sources */,
 				87025A662BD01C850070FE2E /* DrawsView.swift in Sources */,
 				872942D02BD171FC00E482F1 /* DrawItemShimmerView.swift in Sources */,
+				8752A5902D136A3600B5CCCE /* EmptyDrawsDataSource.swift in Sources */,
 				87F7FA212BDAAD8F00D7CD59 /* PoolDetailViewModel.swift in Sources */,
 				872942FA2BD1B04400E482F1 /* ListDrawUseCase.swift in Sources */,
+				8752A58E2D136A1400B5CCCE /* LoadedDrawsDataSource.swift in Sources */,
 				8752A5842D1308EF00B5CCCE /* DrawsViewController.swift in Sources */,
 				87F9C6442BD07F9A00D20A1D /* DrawItemView.swift in Sources */,
 				8752A5822D13069300B5CCCE /* AppDelegate.swift in Sources */,
