@@ -41,45 +41,15 @@ class LoadedDrawsDataSource: NSObject, UITableViewDataSource, UITableViewDelegat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.selectionStyle = .none
-        
         switch mode {
         case .rounds:
-            cell.contentConfiguration = UIHostingConfiguration(content: {
-                return DrawItemView.init(draw: draws[indexPath.row])
-            }).margins(.all, .zero)
+            let drawCell = tableView.dequeueReusableCell(withIdentifier: DrawItemView.className) as! DrawItemView
+            drawCell.setData(draws[indexPath.row])
+            return drawCell
         case .pool:
-            if let draw = draws.first {
-                cell.contentConfiguration = UIHostingConfiguration(content: {
-                    
-                    Text(poolTitle(date: draw.drawDistributionAsOn))
-                        .multilineTextAlignment(.center)
-                        .font(.title3)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                    ForEach(draw.pool, id: \.range) { pool in
-                        ZStack {
-                            HStack {
-                                Text(pool.range.rawValue)
-                                    .font(.headline)
-                                Spacer()
-                                Text(pool.candidates)
-                                    .font(.subheadline)
-                            }
-                        }
-                        .onTapGesture { [weak self] in
-                            self?.didSelectPool(pool)
-                        }
-                        .padding(.horizontal, 24)
-                        .padding(.vertical, 4)
-                    }
-                    
-                }).margins(.all, .zero)
-            }
+            return poolCell()
         }
         
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -91,7 +61,40 @@ class LoadedDrawsDataSource: NSObject, UITableViewDataSource, UITableViewDelegat
         }
     }
     
-    func poolTitle(date: Date) -> String {
+    private func poolCell() -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.selectionStyle = .none
+        if let draw = draws.first {
+            cell.contentConfiguration = UIHostingConfiguration(content: {
+                
+                Text(poolTitle(date: draw.drawDistributionAsOn))
+                    .multilineTextAlignment(.center)
+                    .font(.title3)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                ForEach(draw.pool, id: \.range) { pool in
+                    ZStack {
+                        HStack {
+                            Text(pool.range.rawValue)
+                                .font(.headline)
+                            Spacer()
+                            Text(pool.candidates)
+                                .font(.subheadline)
+                        }
+                    }
+                    .onTapGesture { [weak self] in
+                        self?.didSelectPool(pool)
+                    }
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 4)
+                }
+                
+            }).margins(.all, .zero)
+        }
+        return cell
+    }
+    
+    private func poolTitle(date: Date) -> String {
         "CRS score distribution of candidates in the Express Entry pool as of \(dateFormatter.string(from: date))"
     }
 }

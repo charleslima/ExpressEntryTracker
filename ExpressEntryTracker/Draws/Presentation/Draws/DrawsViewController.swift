@@ -11,13 +11,15 @@ import Combine
 
 class DrawsViewController: UIViewController {
     
-    private let viewModel = DrawsViewModel()
-    private let drawsView = DrawsView()
+    private var viewModel: IDrawsViewModel
+    private let drawsView: DrawsView
     private var cancellables = [AnyCancellable]()
     
     private var tableDataSource: (UITableViewDataSource & UITableViewDelegate)?
     
-    init() {
+    init(viewModel: IDrawsViewModel = DrawsViewModel(), drawsView: DrawsView = DrawsView()) {
+        self.viewModel = viewModel
+        self.drawsView = drawsView
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -44,6 +46,7 @@ class DrawsViewController: UIViewController {
     }
     
     private func setupTableView() {
+        drawsView.tableView.register(DrawItemView.self, forCellReuseIdentifier: DrawItemView.className)
         drawsView.tableView.delegate = self.tableDataSource
         drawsView.tableView.dataSource = self.tableDataSource
         drawsView.tableView.separatorStyle = .none
